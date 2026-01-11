@@ -1,21 +1,39 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using RedisShop.Models;
+using RedisShop.Services;
 
 namespace RedisShop.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly IProductService _productService;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IProductService productService)
     {
         _logger = logger;
+        _productService = productService;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var products = await _productService.GetAllProductsAsync();
+        return View(products);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddTestProduct()
+    {
+        var test = new Product
+        {
+            Name = "test" + new Random().Next(1,1000).ToString(),
+            Price = new Random().Next(1,1000)
+        };
+
+        await _productService.CreateProductAsync(test);
+
+        return RedirectToAction(nameof(Index));
     }
 
     public IActionResult Privacy()

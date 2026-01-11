@@ -1,8 +1,44 @@
-﻿@{
+﻿@model IEnumerable<Product>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Our offer</h1>
+
+    <div class="container">
+        @if (Model is not null && Model.Any())
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+            </table>
+            <tbody>
+                @foreach (Product product in Model)
+                {
+                    <tr>
+                        <td>@product.Name</td>
+                        <td>@product.Price</td>
+                    </tr>
+                }
+            </tbody>
+        }
+        else
+        {
+            <p>No products in DB!</p>
+        }
+    </div>
+
+    <div>
+        <form asp-action="AddTestProduct" method="post">
+            <button type="submit">
+                + Add test product
+            </button>
+        </form>
+    </div>
 </div>
