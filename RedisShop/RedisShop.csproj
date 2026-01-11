@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="10.0.1" />
     <PackageReference Include="Redis.OM" Version="1.1.0" />
     <PackageReference Include="StackExchange.Redis" Version="2.10.1" />
   </ItemGroup>

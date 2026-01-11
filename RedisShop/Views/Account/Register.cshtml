@@ -1,0 +1,43 @@
+@model RedisShop.Models.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register page";
+}
+
+<div>
+    <form asp-action="Register" method="post">
+
+        <div>
+            <label asp-for="Login">Login</label>
+            <input asp-for="Login" placeholder="enter login..."/>
+            <span asp-validation-for="Login" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="Password">Password</label>
+            <input asp-for="Password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="ConfirmedPassword">ConfirmPassword</label>
+            <input asp-for="ConfirmedPassword" />
+            <span asp-validation-for="ConfirmedPassword" class="text-danger"></span>
+        </div>
+
+        <div>
+            <button type="submit">Register</button>
+        </div>
+    </form>
+
+    <hr />
+
+    <div>
+        <p>Already have an account</p>
+        <a asp-action="Login">Login</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
