@@ -37,6 +37,7 @@ builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUserContext, UserContext>();
+builder.Services.AddScoped<DataSeeder>();
 
 // Redis session managment config
 builder.Services.AddOptions<CookieAuthenticationOptions>(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -44,8 +45,8 @@ builder.Services.AddOptions<CookieAuthenticationOptions>(CookieAuthenticationDef
     {
         options.SessionStore = store;
 
-        options.ExpireTimeSpan = TimeSpan.FromSeconds(120);
-        options.SlidingExpiration = false;
+        options.ExpireTimeSpan = TimeSpan.FromSeconds(12000);
+        options.SlidingExpiration = true;
         options.LoginPath = "/Account/Login";
         options.Cookie.Name = "TokenThatDeservesAnA";
     });
@@ -65,6 +66,13 @@ var provider = app.Services.GetRequiredService<RedisConnectionProvider>();
 await provider.Connection.CreateIndexAsync(typeof(RedisShop.Models.Product)); // Product
 await provider.Connection.CreateIndexAsync(typeof(RedisShop.Models.User)); // User
 await provider.Connection.CreateIndexAsync(typeof(RedisShop.Models.CartItem)); // CartItem
+
+// Seed database
+using (var scope = app.Services.CreateScope())
+{
+    var seeder = scope.ServiceProvider.GetRequiredService<DataSeeder>();
+    await seeder.SeedAsync();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

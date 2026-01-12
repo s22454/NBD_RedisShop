@@ -17,16 +17,13 @@
 
     <div class="border-top pt-2">
         <div class="d-flex justify-content-between mb-2 fw-bold">
-            <span>Razem:</span>
+            <span>Total:</span>
             <span class="text-success">@Model.TotalPrice.ToString("C")</span>
         </div>
 
         <div class="d-grid gap-2">
-            <a asp-controller="Cart" asp-action="Index" class="btn btn-sm btn-outline-primary">
-                Edytuj
-            </a>
             <form asp-controller="Cart" asp-action="Checkout" method="post" class="d-grid">
-                <button type="submit" class="btn btn-sm btn-success">KUPUJĘ</button>
+                <button type="submit" class="btn btn-sm btn-success">BUY</button>
             </form>
         </div>
     </div>
@@ -35,6 +32,6 @@ else
 {
     <div class="text-center py-4">
         <div class="fs-1 text-muted mb-2">🛒</div>
-        <p class="text-muted small">Koszyk jest pusty.</p>
+        <p class="text-muted small">Cart is empty.</p>
     </div>
 }

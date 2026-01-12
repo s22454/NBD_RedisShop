@@ -1,0 +1,22 @@
+[
+    {
+        "Name": "Air",
+        "Price": 69.69,
+        "Stock": 999999
+    },
+    {
+        "Name": "Good intentions",
+        "Price": 4.20,
+        "Stock": 50
+    },
+    {
+        "Name": "Fun",
+        "Price": 77.77,
+        "Stock": 2
+    },
+    {
+        "Name": "Brain power",
+        "Price": 21.37,
+        "Stock": 5
+    }
+]
