@@ -33,6 +33,10 @@ builder.Services.AddSingleton(new RedisConnectionProvider(connectionString));
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddSingleton<ITicketStore, RedisTicketStore>();
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IUserContext, UserContext>();
 
 // Redis session managment config
 builder.Services.AddOptions<CookieAuthenticationOptions>(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -60,6 +64,7 @@ var provider = app.Services.GetRequiredService<RedisConnectionProvider>();
 //todo add error handling
 await provider.Connection.CreateIndexAsync(typeof(RedisShop.Models.Product)); // Product
 await provider.Connection.CreateIndexAsync(typeof(RedisShop.Models.User)); // User
+await provider.Connection.CreateIndexAsync(typeof(RedisShop.Models.CartItem)); // CartItem
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

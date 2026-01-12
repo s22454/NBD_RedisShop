@@ -53,21 +53,44 @@
                             }
                         </ul>
 
-
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+    <div class="container-fluid my-4 px-4">
+        <div class="row">
+
+            <div class="@(User.Identity != null && User.Identity.IsAuthenticated ? "col-lg-10" : "col-12")">
+                <main role="main" class="pb-3">
+
+                    <div class="@(User.Identity != null && User.Identity.IsAuthenticated ? "container" : "")">
+                        @RenderBody()
+                    </div>
+
+                </main>
+            </div>
+
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                <div class="col-lg-2">
+                    <div class="card shadow-sm sticky-top border-0 bg-light" style="top: 20px; z-index: 1;">
+                        <div class="card-header bg-transparent border-bottom-0 pt-3">
+                            <h5 class="mb-0 fw-bold">Twój koszyk</h5>
+                        </div>
+                        <div class="card-body p-3">
+                            <vc:cart-summary />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2026 - RedisShop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2026 - RedisShop - s22454
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

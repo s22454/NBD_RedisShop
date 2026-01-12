@@ -5,40 +5,61 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Our offer</h1>
 
-    <div class="container">
-        @if (Model is not null && Model.Any())
-        {
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Price</th>
-                    </tr>
-                </thead>
-            </table>
+    <h1 class="display-4">Our offer</h1>
+</div>
+<div class="container">
+    @if (Model is not null && Model.Any())
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                </tr>
+            </thead>
             <tbody>
                 @foreach (Product product in Model)
                 {
                     <tr>
                         <td>@product.Name</td>
                         <td>@product.Price</td>
+                        <td>
+                            @if (product.Stock > 0)
+                            {
+                                <span class="text-success">@product.Stock</span>
+                            }
+                            else
+                            {
+                                <span class="text-success">Out of stock</span>
+                            }
+                        </td>
+                        <td>
+                            <form asp-controller="Cart" asp-action="Add" method="post">
+                                <input type="hidden" name="productId" value="@product.Id" />
+                                <button type="submit"
+                                    class="btn btn-sm @(product.Stock > 0 ? "btn-success" : "btn-secondary") "
+                                    @(product.Stock == 0 ? "disabled" : "")>
+                                    🛒
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 }
             </tbody>
-        }
-        else
-        {
-            <p>No products in DB!</p>
-        }
-    </div>
+        </table>
+    }
+    else
+    {
+        <p class="alert alert-warning">No products in DB!</p>
+    }
+</div>
 
-    <div>
-        <form asp-action="AddTestProduct" method="post">
-            <button type="submit">
-                + Add test product
-            </button>
-        </form>
-    </div>
+<div>
+    <form asp-action="AddTestProduct" method="post">
+        <button type="submit">
+            + Add test product
+        </button>
+    </form>
 </div>

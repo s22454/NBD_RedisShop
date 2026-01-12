@@ -24,4 +24,9 @@ public class ProductService : IProductService
         //todo add logging and exceptions
         await _products.InsertAsync(product);
     }
+
+    public async Task<Product?> GetByProductIdAsync(string productId)
+    {
+        return await _products.FindByIdAsync(productId);
+    }
 }

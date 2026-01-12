@@ -9,11 +9,13 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly IProductService _productService;
+    private readonly ICartService _cartService;
 
-    public HomeController(ILogger<HomeController> logger, IProductService productService)
+    public HomeController(ILogger<HomeController> logger, IProductService productService, ICartService cartService)
     {
         _logger = logger;
         _productService = productService;
+        _cartService = cartService;
     }
 
     public async Task<IActionResult> Index()
@@ -28,7 +30,8 @@ public class HomeController : Controller
         var test = new Product
         {
             Name = "test" + new Random().Next(1,1000).ToString(),
-            Price = new Random().Next(1,1000)
+            Price = new Random().Next(1,1000),
+            Stock = new Random().Next(1,10)
         };
 
         await _productService.CreateProductAsync(test);

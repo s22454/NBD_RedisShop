@@ -1,0 +1,40 @@
+@model RedisShop.Models.ViewModels.CartViewModel
+
+@if (Model.Items.Any())
+{
+    <ul class="list-group list-group-flush mb-3">
+        @foreach (var item in Model.Items)
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold text-truncate" style="max-width: 110px;">@item.ProductName</div>
+                    <small class="text-muted">@item.Quantity x @item.Price.ToString("C")</small>
+                </div>
+                <span class="badge bg-primary rounded-pill">@((item.Quantity * item.Price).ToString("C"))</span>
+            </li>
+        }
+    </ul>
+
+    <div class="border-top pt-2">
+        <div class="d-flex justify-content-between mb-2 fw-bold">
+            <span>Razem:</span>
+            <span class="text-success">@Model.TotalPrice.ToString("C")</span>
+        </div>
+
+        <div class="d-grid gap-2">
+            <a asp-controller="Cart" asp-action="Index" class="btn btn-sm btn-outline-primary">
+                Edytuj
+            </a>
+            <form asp-controller="Cart" asp-action="Checkout" method="post" class="d-grid">
+                <button type="submit" class="btn btn-sm btn-success">KUPUJĘ</button>
+            </form>
+        </div>
+    </div>
+}
+else
+{
+    <div class="text-center py-4">
+        <div class="fs-1 text-muted mb-2">🛒</div>
+        <p class="text-muted small">Koszyk jest pusty.</p>
+    </div>
+}

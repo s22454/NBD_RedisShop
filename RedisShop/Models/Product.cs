@@ -14,5 +14,8 @@ namespace RedisShop.Models
 
         [Indexed]
         public float Price { get; set; }
+
+        [Indexed]
+        public int Stock { get; set; }
     }
 }
