@@ -20,7 +20,7 @@ public class CartService : ICartService
         var userCart = await _cart.Where(c => c.UserId == userId).ToListAsync();
 
         // Check dose user have that item in cart
-        var exisitingItem = await _cart.FirstOrDefaultAsync(c => c.ProductId == product.Id);
+        var exisitingItem = await _cart.FirstOrDefaultAsync(c => c.ProductId == product.Id && c.UserId == userId);
 
         // Increase quantity if user have that product in cart
         if (exisitingItem is not null)

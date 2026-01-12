@@ -9,6 +9,7 @@ namespace RedisShop.Controllers;
 [Authorize]
 public class CartController : Controller
 {
+    private static readonly string _className = "CartController";
     private readonly ICartService _cartService;
     private readonly IProductService _productService;
     private readonly IOrderService _orderService;
@@ -47,6 +48,8 @@ public class CartController : Controller
         // Get user id
         var userId = _userContext.UserId;
 
+        Utils.Logger.Log(_className, LogType.INFO, $"Adding {productId} for user {userId}");
+
         // Get product from db
         var product = await _productService.GetByProductIdAsync(productId);
 
@@ -64,6 +67,13 @@ public class CartController : Controller
     {
         // Get user id
         var userId = _userContext.UserId;
+
+        var cart = await _cartService.GetCartAsync(userId);
+
+        foreach (var item in cart)
+        {
+            Utils.Logger.Log(_className, LogType.INFO, $"User: {userId} Item: {item.ProductName} Qt: {item.Quantity}");
+        }
 
         try
         {
