@@ -1,5 +1,16 @@
 @model RedisShop.Models.ViewModels.CartViewModel
 
+<style>
+    .btn-animated {
+        transition: all 0.5s ease;
+    }
+    .btn-animated:hover {
+        background-color: rgba(23, 160, 96, 1);
+        border-color: rgba(23, 160, 96, 1);
+        box-shadow: 0 4px 20px rgba(25, 135, 84, 0.4);
+    }
+</style>
+
 @if (Model.Items.Any())
 {
     <ul class="list-group list-group-flush mb-3">
@@ -8,9 +19,9 @@
             <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                 <div class="ms-2 me-auto">
                     <div class="fw-bold text-truncate" style="max-width: 110px;">@item.ProductName</div>
-                    <small class="text-muted">@item.Quantity x @item.Price.ToString("C")</small>
+                    <small class="text-muted">@item.Quantity x @item.Price.ToString("F2") xd</small>
                 </div>
-                <span class="badge bg-primary rounded-pill">@((item.Quantity * item.Price).ToString("C"))</span>
+                <span class="badge bg-primary rounded-pill">@((item.Quantity * item.Price).ToString("F2")) xd</span>
             </li>
         }
     </ul>
@@ -18,12 +29,12 @@
     <div class="border-top pt-2">
         <div class="d-flex justify-content-between mb-2 fw-bold">
             <span>Total:</span>
-            <span class="text-success">@Model.TotalPrice.ToString("C")</span>
+            <span class="text-success">@Model.TotalPrice.ToString("F2") xd</span>
         </div>
 
         <div class="d-grid gap-2">
             <form asp-controller="Cart" asp-action="Checkout" method="post" class="d-grid">
-                <button type="submit" class="btn btn-sm btn-success">BUY</button>
+                <button type="submit" class="btn btn-sm btn-success btn-animated">BUY</button>
             </form>
         </div>
     </div>

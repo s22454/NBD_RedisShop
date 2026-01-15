@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Redis cache config
 builder.Services.AddStackExchangeRedisCache(options =>
 {
-    options.Configuration = builder.Configuration.GetConnectionString("Redis").Replace("redis://", "");
+    options.Configuration = builder.Configuration.GetConnectionString("Redis")?.Replace("redis://", "");
     options.InstanceName = "RedisShop_"; //todo move to config?
 });
 

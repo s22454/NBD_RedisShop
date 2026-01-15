@@ -2,66 +2,101 @@
 @model IEnumerable<ProductViewModel>
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Our Offer";
 }
 
-<div class="text-center">
+<div class="container-fluid py-4">
 
-    <h1 class="display-4">Our offer</h1>
-</div>
-<div class="container">
-    @if (Model is not null && Model.Any())
-    {
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                    <th>Add to cart</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var product in Model)
-                {
-                    <tr>
-                        <td>@product.Name</td>
-                        <td>@product.Price</td>
-                        <td>
-                            @if (product.AvailableStock > 0)
-                            {
-                                <span class="text-success">@product.AvailableStock</span>
-                            }
-                            else
-                            {
-                                <span class="text-success">Out of stock</span>
-                            }
-                        </td>
-                        <td>
-                            <form asp-controller="Cart" asp-action="Add" method="post">
-                                <input type="hidden" name="productId" value="@product.Id" />
-                                <button type="submit"
-                                    class="btn btn-sm @(product.AvailableStock > 0 ? "btn-success" : "btn-secondary") "
-                                    @(product.AvailableStock == 0 ? "disabled" : "")>
-                                    🛒
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
-    else
-    {
-        <p class="alert alert-warning">No products in DB!</p>
-    }
-</div>
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold text-success">Our Offer</h1>
+        <p class="text-muted lead">Browse our amazing products powered by Redis</p>
+    </div>
 
-<div>
-    <form asp-action="AddTestProduct" method="post">
-        <button type="submit">
-            + Add test product
-        </button>
-    </form>
+
+    <div class="card shadow-sm border-0 rounded-3 overflow-hidden">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="py-3 ps-4 text-uppercase text-secondary small fw-bold" style="width: 40%">Product
+                                Name</th>
+
+                            <th class="py-3 text-center text-uppercase text-secondary small fw-bold" style="width: 20%">
+                                Price</th>
+                            <th class="py-3 text-center text-uppercase text-secondary small fw-bold" style="width: 20%">
+                                Availability</th>
+                            <th class="py-3 text-center text-uppercase text-secondary small fw-bold" style="width: 20%">
+                                Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var product in Model)
+                        {
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="fw-bold text-dark">@product.Name</div>
+                                </td>
+
+                                <td class="text-center">
+                                    <span class="fs-5 fw-bold text-primary">
+                                        @product.Price.ToString("F2") xd
+                                    </span>
+                                </td>
+
+                                <td class="text-center">
+                                    @if (product.AvailableStock > 0)
+                                    {
+                                        <span
+                                            class="badge bg-success-subtle text-success border border-success px-3 py-2 rounded-pill">
+                                            @product.AvailableStock in stock
+                                        </span>
+
+                                        @if (product.InCartQuantity > 0)
+                                        {
+                                            <div class="small text-muted mt-1">
+                                                (You have @product.InCartQuantity)
+                                            </div>
+                                        }
+                                    }
+                                    else if (product.RealStock > 0 && product.AvailableStock == 0)
+                                    {
+                                        <span class="badge bg-warning text-dark px-3 py-2 rounded-pill">
+                                            All in your cart
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-light text-danger border border-danger px-3 py-2 rounded-pill">
+                                            Sold Out
+                                        </span>
+                                    }
+                                </td>
+
+                                <td class="text-center">
+                                    <form asp-controller="Cart" asp-action="Add" method="post">
+                                        <input type="hidden" name="productId" value="@product.Id" />
+
+                                        <button type="submit"
+                                            class="btn btn-sm px-4 rounded-pill @(product.AvailableStock > 0 ? "btn-success" : "btn-secondary")"
+                                            style="min-width: 120px;" @(product.AvailableStock == 0 ? "disabled" : "")>
+
+                                            @if (product.AvailableStock > 0)
+                                            {
+                                                <span>🛒 Add to Cart</span>
+                                            }
+                                            else
+                                            {
+                                                <span>Unavailable</span>
+                                            }
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>

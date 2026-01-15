@@ -4,37 +4,67 @@
     ViewData["Title"] = "Register page";
 }
 
-<div>
-    <form asp-action="Register" method="post">
+<style>
+    .btn-animated {
+        transition: all 0.5s ease;
+    }
+    .btn-animated:hover {
+        background-color: rgba(23, 160, 96, 1);
+        border-color: rgba(23, 160, 96, 1);
+        box-shadow: 0 4px 20px rgba(25, 135, 84, 0.4);
+    }
+</style>
 
-        <div>
-            <label asp-for="Login">Login</label>
-            <input asp-for="Login" placeholder="enter login..."/>
-            <span asp-validation-for="Login" class="text-danger"></span>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-body p-5">
+
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold text-success">Create Account</h2>
+                        <p class="text-muted">Join RedisShop today</p>
+                    </div>
+
+                    <form asp-action="Register" method="post">
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="Login" class="form-control" id="floatingInput" placeholder="Enter login..." />
+                            <label for="floatingInput">Login</label>
+                            <span asp-validation-for="Login" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="Password" type="password" class="form-control" id="floatingPassword" placeholder="Password" />
+                            <label for="floatingPassword">Password</label>
+                            <span asp-validation-for="Password" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <input asp-for="ConfirmedPassword" type="password" class="form-control" id="floatingConfirm" placeholder="Confirm Password" />
+                            <label for="floatingConfirm">Confirm Password</label>
+                            <span asp-validation-for="ConfirmedPassword" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success btn-lg btn-animated">
+                                Register
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+
+                <div class="card-footer text-center py-3 bg-light border-0 rounded-bottom-3">
+                    <span class="text-muted">Already have an account?</span>
+                    <a asp-action="Login" class="text-success fw-bold text-decoration-none ms-1">Login</a>
+                </div>
+            </div>
+
         </div>
-
-        <div>
-            <label asp-for="Password">Password</label>
-            <input asp-for="Password" />
-            <span asp-validation-for="Password" class="text-danger"></span>
-        </div>
-
-        <div>
-            <label asp-for="ConfirmedPassword">ConfirmPassword</label>
-            <input asp-for="ConfirmedPassword" />
-            <span asp-validation-for="ConfirmedPassword" class="text-danger"></span>
-        </div>
-
-        <div>
-            <button type="submit">Register</button>
-        </div>
-    </form>
-
-    <hr />
-
-    <div>
-        <p>Already have an account</p>
-        <a asp-action="Login">Login</a>
     </div>
 </div>
 
