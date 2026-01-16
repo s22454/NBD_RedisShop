@@ -63,6 +63,32 @@ public class CartController : Controller
     }
 
     [HttpPost]
+    public async Task<IActionResult> Increase(string productId)
+    {
+        // Get product from db
+        var product = await _productService.GetByProductIdAsync(productId);
+
+        // Check if product is available and update cart
+        if (product is not null && product.Stock > 0)
+            await _cartService.AddToCartAsync(_userContext.UserId, product, 1);
+        else
+        {
+            TempData["Error"] = $"Can't add more! Only {product?.Stock ?? 0} items available.";
+        }
+
+        return Redirect(Request.Headers.Referer.ToString());
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Decrease(string productId)
+    {
+        // Decrease item quantity in user cart
+        await _cartService.RemoveFromCartAsync(_userContext.UserId, productId, 1);
+
+        return Redirect(Request.Headers.Referer.ToString());
+    }
+
+    [HttpPost]
     public async Task<IActionResult> Checkout()
     {
         // Get user id

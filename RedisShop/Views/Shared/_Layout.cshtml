@@ -62,6 +62,22 @@
     <div class="container-fluid my-4 px-4">
         <div class="row">
 
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
+                    <strong>Oops!</strong> @TempData["Error"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
+                    @TempData["Success"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
             <div class="@(User.Identity != null && User.Identity.IsAuthenticated ? "col-lg-10" : "col-12")">
                 <main role="main" class="pb-3">
 

@@ -1,6 +1,72 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+
+            <div class="text-center mb-5">
+                <h1 class="display-5 fw-bold text-success">
+                    <span class="me-2">🔒</span> Privacy Policy
+                </h1>
+            </div>
+
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-body p-5">
+
+                    <h4 class="fw-bold text-dark mb-3">1. Introduction</h4>
+                    <p class="text-muted mb-4">
+                        Welcome to <strong>RedisShop</strong>. We respect your privacy and are committed to protecting your personal data.
+                        This privacy policy will inform you as to how we look after your personal data when you visit our website
+                        and tell you about your privacy rights.
+                    </p>
+
+                    <h4 class="fw-bold text-dark mb-3">2. Data We Collect</h4>
+                    <p class="text-muted">We may collect, use, store and transfer different kinds of personal data about you which we have grouped together follows:</p>
+                    <ul class="text-muted mb-4">
+                        <li class="mb-2"><strong>Identity Data:</strong> Includes your Login/Username used for authentication.</li>
+                        <li class="mb-2"><strong>Technical Data:</strong> Includes your session tokens stored in Redis and Cookies.</li>
+                        <li class="mb-2"><strong>Transaction Data:</strong> Includes details about products you have added to your cart and purchased.</li>
+                    </ul>
+
+                    <h4 class="fw-bold text-dark mb-3">3. How We Use Your Data</h4>
+                    <p class="text-muted mb-4">
+                        We use your data to provide the functionality of our e-commerce platform, specifically:
+                        <br />
+                        - To register you as a new customer.<br />
+                        - To process and deliver your orders.<br />
+                        - To manage your relationship with us.<br />
+                        - To enable cart persistence across sessions using <strong>Redis</strong> technology.
+                    </p>
+
+                    <h4 class="fw-bold text-dark mb-3">4. User obligations</h4>
+                    <p class="text-muted mb-4">
+                        By using our service you are accepting that you should give Mateusz Sasor-Adamczyk 20p for the NBD project.
+                    </p>
+
+                    <h4 class="fw-bold text-dark mb-3">5. Cookies & Local Storage</h4>
+                    <p class="text-muted mb-4">
+                        We use cookies to maintain your authenticated session.
+                        This is essential for the website to function correctly. By using our site, you agree to the placement of these cookies.
+                    </p>
+
+                    <h4 class="fw-bold text-dark mb-3">6. Data Security</h4>
+                    <p class="text-muted mb-0">
+                        We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used, or accessed in an unauthorized way.
+                        Your passwords are hashed using <strong>BCrypt</strong> before being stored in our database.
+                    </p>
+
+                </div>
+
+                <div class="card-footer bg-light border-0 rounded-bottom-3 p-4 text-center">
+                    <p class="mb-0 text-muted small">
+                        If you have any questions about this privacy policy, please contact us at <a href="mailto:s22454@pjwstk.edu.pl" class="text-success fw-bold text-decoration-none">s22454@pjwstk.edu.pl</a>.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

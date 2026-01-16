@@ -46,6 +46,28 @@ public class CartService : ICartService
         }
     }
 
+    public async Task RemoveFromCartAsync(string userId, string productId, int quantity)
+    {
+        // Get user cart
+        var cart = await _cart.Where(c => c.UserId == userId).ToListAsync();
+
+        // Get item from cart
+        var item = cart.FirstOrDefault(c => c.ProductId == productId);
+
+        // Exist if there is a problem
+        if (item is null || item.Quantity == 0) return;
+
+        // Adjust item quantity in the cart
+        item.Quantity -= quantity;
+
+        // Update item quantity in cart or delete it if its 0
+        if (item.Quantity == 0)
+            await _cart.DeleteAsync(item);
+        else
+            await _cart.UpdateAsync(item);
+    }
+
+
     public async Task ClearCartAsync(string userId)
     {
         await _cart

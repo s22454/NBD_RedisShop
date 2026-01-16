@@ -9,6 +9,40 @@
         border-color: rgba(23, 160, 96, 1);
         box-shadow: 0 4px 20px rgba(25, 135, 84, 0.4);
     }
+
+    .qty-pill {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+    }
+
+    .btn-qty-mini {
+        width: 30px;
+        height: 20px;
+        border: none;
+        background: transparent;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        justify-self: center;
+        color: #6c757d;
+        transition: ease color 0.3s, ease background-color 0.3s;
+    }
+
+    .btn-qty-mini:hover {
+        background-color: #e9ecef;
+        color: #000;
+    }
+
+    .btn-plus:hover {
+        color: #198754;
+    }
+
+    .btn-minus:hover {
+        color: #dc3545;
+        }
 </style>
 
 @if (Model.Items.Any())
@@ -17,11 +51,36 @@
         @foreach (var item in Model.Items)
         {
             <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+
                 <div class="ms-2 me-auto">
-                    <div class="fw-bold text-truncate" style="max-width: 110px;">@item.ProductName</div>
-                    <small class="text-muted">@item.Quantity x @item.Price.ToString("F2") xd</small>
+                    <div class="fw-bold text-truncate" style="max-width: 130px;">@item.ProductName</div>
+                    <small class="text-muted" style="font-size: 0.85rem;">
+                        @item.Quantity x @item.Price.ToString("F2") xd
+                    </small>
                 </div>
-                <span class="badge bg-primary rounded-pill">@((item.Quantity * item.Price).ToString("F2")) xd</span>
+
+                <div class="d-flex flex-column align-items-end ms-2">
+
+                    <span class="badge bg-primary rounded-pill mb-1">
+                        @((item.Quantity * item.Price).ToString("F2")) xd
+                    </span>
+
+                    <div class="qty-pill rounded-pill d-flex overflow-hidden">
+
+                        <form asp-controller="Cart" asp-action="Increase" method="post">
+                            <input type="hidden" name="productId" value="@item.ProductId" />
+                            <button type="submit" class="btn-qty-mini btn-plus" title="Add one">+</button>
+                        </form>
+
+                        <div style="width: 1px; background-color: #dee2e6;"></div>
+
+                        <form asp-controller="Cart" asp-action="Decrease" method="post">
+                            <input type="hidden" name="productId" value="@item.ProductId" />
+                            <button type="submit" class="btn-qty-mini btn-minus" title="Remove one">−</button>
+                        </form>
+
+                    </div>
+                </div>
             </li>
         }
     </ul>
@@ -34,7 +93,7 @@
 
         <div class="d-grid gap-2">
             <form asp-controller="Cart" asp-action="Checkout" method="post" class="d-grid">
-                <button type="submit" class="btn btn-sm btn-success btn-animated">BUY</button>
+                <button type="submit" class="btn btn-sm btn-success btn-animated py-2">BUY</button>
             </form>
         </div>
     </div>
