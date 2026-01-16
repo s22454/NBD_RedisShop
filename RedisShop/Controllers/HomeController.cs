@@ -32,33 +32,25 @@ public class HomeController : Controller
         {
             // Get user cart
             var cart = await _cartService.GetCartAsync(_userContext.UserId);
-            // var cartQuantities = new Dictionary<string, int>();
-
             cartQuantities = cart.ToDictionary(k => k.ProductId, v => v.Quantity);
-
-            // // Subtract cart from products
-            // foreach (var product in products)
-            //     if (product.Id is not null && cartQuantities.TryGetValue(product.Id, out int qty))
-            //         product.Stock -= qty;
         }
 
         var viewModelList = products.Select(p =>
         {
-        // Sprawdzamy ile user ma w koszyku (bezpiecznie, bez modyfikacji p.Stock)
-        int inCart = (p.Id != null && cartQuantities.TryGetValue(p.Id, out int value)) ? value : 0;
+            // Check how much items are in user cart
+            int inCart = (p.Id != null && cartQuantities.TryGetValue(p.Id, out int value)) ? value : 0;
 
-        return new ProductViewModel
-        {
-            Id = p.Id!, // Zakładamy że ID jest, ewentualnie obsłuż null
-            Name = p.Name,
-            Price = p.Price,
-            RealStock = p.Stock,
-            InCartQuantity = inCart,
-
-            // Tutaj wyliczamy to, co najważniejsze - bez modyfikowania oryginału!
-            AvailableStock = Math.Max(0, p.Stock - inCart)
-        };
-    }).ToList();
+            // Update visible stock
+            return new ProductViewModel
+            {
+                Id = p.Id!,
+                Name = p.Name,
+                Price = p.Price,
+                RealStock = p.Stock,
+                InCartQuantity = inCart,
+                AvailableStock = Math.Max(0, p.Stock - inCart)
+            };
+        }).ToList();
 
         return View(viewModelList);
     }
