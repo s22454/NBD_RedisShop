@@ -22,7 +22,6 @@ public class DataSeeder
         if (await _products.AnyAsync()) return;
 
         // Create file path
-        //todo move to config?
         var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "products.json");
 
         // Check dose file exist

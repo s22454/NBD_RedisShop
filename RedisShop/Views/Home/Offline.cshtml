@@ -1,0 +1,27 @@
+@{
+    ViewData["Title"] = "Przerwa techniczna";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Store is offline</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body class="bg-light d-flex align-items-center justify-content-center" style="height: 100vh;">
+
+    <div class="text-center p-5 bg-white shadow rounded">
+        <h1 class="text-danger fw-bold mt-3">System error</h1>
+        <p class="lead text-muted">
+            Couldn't connect to databes<br />
+            Try turning redis database on or as your Mati for help.
+        </p>
+
+        <a href="/" class="btn btn-outline-primary mt-3">Try to refresh</a>
+    </div>
+
+</body>
+</html>

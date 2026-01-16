@@ -16,14 +16,11 @@ public class RedisTicketStore : ITicketStore
 
     public async Task RemoveAsync(string key)
     {
-        //todo add logging and exceptions
         await _cache.RemoveAsync(KeyPrefix + key);
     }
 
     public async Task RenewAsync(string key, AuthenticationTicket ticket)
     {
-        //todo add logging and exceptions
-
         // Create options
         var options = new DistributedCacheEntryOptions();
 
@@ -39,8 +36,6 @@ public class RedisTicketStore : ITicketStore
 
     public async Task<AuthenticationTicket?> RetrieveAsync(string key)
     {
-        //todo add logging and exceptions
-
         // Get token from db
         var bytes = await _cache.GetAsync(KeyPrefix + key);
 
@@ -53,8 +48,6 @@ public class RedisTicketStore : ITicketStore
 
     public async Task<string> StoreAsync(AuthenticationTicket ticket)
     {
-        //todo add logging and exceptions
-
         // Generate session token
         string key = Guid.NewGuid().ToString();
 

@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration.GetConnectionString("Redis")?.Replace("redis://", "");
-    options.InstanceName = "RedisShop_"; //todo move to config?
+    options.InstanceName = "RedisShop_";
 });
 
 // Add services to the container.
@@ -45,8 +45,8 @@ builder.Services.AddOptions<CookieAuthenticationOptions>(CookieAuthenticationDef
     {
         options.SessionStore = store;
 
-        options.ExpireTimeSpan = TimeSpan.FromSeconds(12000);
-        options.SlidingExpiration = true;
+        options.ExpireTimeSpan = TimeSpan.FromSeconds(120);
+        options.SlidingExpiration = false;
         options.LoginPath = "/Account/Login";
         options.Cookie.Name = "TokenThatDeservesAnA";
     });
@@ -62,7 +62,6 @@ var app = builder.Build();
 var provider = app.Services.GetRequiredService<RedisConnectionProvider>();
 
 // Register indexes
-//todo add error handling
 await provider.Connection.CreateIndexAsync(typeof(RedisShop.Models.Product)); // Product
 await provider.Connection.CreateIndexAsync(typeof(RedisShop.Models.User)); // User
 await provider.Connection.CreateIndexAsync(typeof(RedisShop.Models.CartItem)); // CartItem
@@ -73,6 +72,9 @@ using (var scope = app.Services.CreateScope())
     var seeder = scope.ServiceProvider.GetRequiredService<DataSeeder>();
     await seeder.SeedAsync();
 }
+
+// Register db middleware
+app.UseMiddleware<RedisShop.Middleware.DatabaseExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

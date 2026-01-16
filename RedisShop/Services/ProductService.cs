@@ -15,13 +15,11 @@ public class ProductService : IProductService
 
     public async Task<IList<Product>> GetAllProductsAsync()
     {
-        //todo add logging and exceptions
         return await _products.ToListAsync();
     }
 
     public async Task CreateProductAsync(Product product)
     {
-        //todo add logging and exceptions
         await _products.InsertAsync(product);
     }
 

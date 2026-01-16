@@ -17,8 +17,6 @@ public class UserService : IUserService
 
     public async Task RegisterAsync(string login, string password)
     {
-        //todo add log and excaptions
-
         // Get user with matching login
         var existing = await _users
             .Where(u => u.Login == login)
@@ -40,8 +38,6 @@ public class UserService : IUserService
 
     public async Task<User?> LoginAsync(string login, string password)
     {
-        //todo add log and excaptions
-
         // Get user with matching login
         var user = await _users
             .Where(u => u.Login == login)

@@ -5,8 +5,6 @@ using RedisShop.Services;
 
 namespace RedisShop.ViewComponents;
 
-
-//todo delete?
 public class CartSummaryViewComponent : ViewComponent
 {
     private readonly ICartService _cartService;

@@ -23,7 +23,6 @@ public class OrderService : IOrderService
         var cartItems = await _cartService.GetCartAsync(userId);
 
         // Check dose cart contains items
-        //todo log and exceptions
         if (!cartItems.Any()) throw new Exception("Cart is empty");
 
         // Update stock based on users cart
